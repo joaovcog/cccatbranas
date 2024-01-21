@@ -1,4 +1,4 @@
-package com.cccat.domain.account;
+package com.cccat.domain.account.validation;
 
 import java.util.regex.Pattern;
 
@@ -16,11 +16,6 @@ public class CarPlateValidator extends Validator {
 	@Override
 	protected String getNullOrEmptyValidationMessage() {
 		return createNullOrEmptyMessage("Car Plate");
-	}
-	
-	@Override
-	public boolean hasValidation(Account account) {
-		return account.isDriverAccount();
 	}
 	
 }

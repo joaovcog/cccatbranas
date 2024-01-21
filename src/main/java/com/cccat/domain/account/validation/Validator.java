@@ -1,4 +1,4 @@
-package com.cccat.domain.account;
+package com.cccat.domain.account.validation;
 
 import com.cccat.shared.ValidationException;
 
@@ -16,10 +16,6 @@ public abstract class Validator {
 	protected abstract void applyValidation(String value);
 
 	protected abstract String getNullOrEmptyValidationMessage();
-
-	public boolean hasValidation(Account account) {
-		return account.isDriverAccount() || account.isPassengerAccount();
-	}
 
 	protected String createNullOrEmptyMessage(String identifier) {
 		return String.format(NULL_EMPTY_VALIDATION_MESSAGE, identifier, identifier);

@@ -1,4 +1,4 @@
-package com.cccat.signup;
+package com.cccat.domain.account.validation;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -11,8 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import com.cccat.domain.account.Account;
-import com.cccat.domain.account.ExistingAccountValidator;
+import com.cccat.domain.account.model.Account;
 import com.cccat.infrastructure.persistence.AccountRepositoryImpl;
 import com.cccat.shared.ValidationException;
 

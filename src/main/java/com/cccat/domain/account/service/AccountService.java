@@ -1,7 +1,14 @@
-package com.cccat.domain.account;
+package com.cccat.domain.account.service;
 
 import java.util.UUID;
 
+import com.cccat.domain.account.model.Account;
+import com.cccat.domain.account.model.AccountRepository;
+import com.cccat.domain.account.validation.CarPlateValidator;
+import com.cccat.domain.account.validation.CpfValidator;
+import com.cccat.domain.account.validation.EmailValidator;
+import com.cccat.domain.account.validation.ExistingAccountValidator;
+import com.cccat.domain.account.validation.NameValidator;
 import com.cccat.infrastructure.persistence.AccountRepositoryImpl;
 
 public class AccountService {

@@ -1,4 +1,4 @@
-package com.cccat.domain.account;
+package com.cccat.domain.account.model;
 
 import java.util.UUID;
 

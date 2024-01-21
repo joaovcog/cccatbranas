@@ -1,11 +1,10 @@
-package com.cccat.signup;
+package com.cccat.domain.account.validation;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cccat.domain.account.CpfValidator;
 import com.cccat.shared.ValidationException;
 
 class CpfValidatorTest {

@@ -1,4 +1,7 @@
-package com.cccat.domain.account;
+package com.cccat.application;
+
+import com.cccat.domain.account.model.Account;
+import com.cccat.domain.account.service.AccountService;
 
 public class SignupUseCase {
 	

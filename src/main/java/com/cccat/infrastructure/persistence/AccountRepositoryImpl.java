@@ -9,8 +9,8 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cccat.domain.account.Account;
-import com.cccat.domain.account.AccountRepository;
+import com.cccat.domain.account.model.Account;
+import com.cccat.domain.account.model.AccountRepository;
 import com.cccat.infrastructure.ConnectionFactory;
 
 public class AccountRepositoryImpl implements AccountRepository {

@@ -1,4 +1,4 @@
-package com.cccat.signup;
+package com.cccat.application;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,9 +12,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cccat.domain.account.Account;
-import com.cccat.domain.account.AccountService;
-import com.cccat.domain.account.SignupUseCase;
+import com.cccat.domain.account.model.Account;
+import com.cccat.domain.account.service.AccountService;
 import com.cccat.infrastructure.ConnectionFactory;
 
 class SignupUseCaseTest {

@@ -1,4 +1,4 @@
-package com.cccat.domain.account;
+package com.cccat.domain.account.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+import com.cccat.domain.account.model.Account;
+import com.cccat.domain.account.model.AccountRepository;
 import com.cccat.shared.ValidationException;
 
 class AccountServiceTest {

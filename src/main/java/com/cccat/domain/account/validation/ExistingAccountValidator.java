@@ -1,5 +1,6 @@
-package com.cccat.domain.account;
+package com.cccat.domain.account.validation;
 
+import com.cccat.domain.account.model.AccountRepository;
 import com.cccat.infrastructure.persistence.AccountRepositoryImpl;
 import com.cccat.shared.ValidationException;
 

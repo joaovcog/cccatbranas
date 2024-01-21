@@ -1,4 +1,4 @@
-package com.cccat.domain.account;
+package com.cccat.domain.account.validation;
 
 import java.util.regex.Pattern;
 
