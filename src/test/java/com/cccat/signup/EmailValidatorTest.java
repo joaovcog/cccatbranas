@@ -8,26 +8,26 @@ class EmailValidatorTest {
 
 	@Test
 	void shouldValidateEmailSuccesfullyWithProperPattern() {
-		String name = "john@email.com";
-		assertTrue(EmailValidator.isValid(name));
+		String email = "john@email.com";
+		assertTrue(EmailValidator.isValid(email));
 	}
 	
 	@Test
 	void shouldFailValidatingEmailWithMissingDomain() {
-		String name = "john@";
-		assertFalse(EmailValidator.isValid(name));
+		String email = "john@";
+		assertFalse(EmailValidator.isValid(email));
 	}
 	
 	@Test
 	void shouldFailValidatingEmailWithOnlyNumbers() {
-		String name = "55555";
-		assertFalse(EmailValidator.isValid(name));
+		String email = "55555";
+		assertFalse(EmailValidator.isValid(email));
 	}
 	
 	@Test
 	void shouldFailValidatingEmptyStringForEmail() {
-		String name = "";
-		assertFalse(EmailValidator.isValid(name));
+		String email = "";
+		assertFalse(EmailValidator.isValid(email));
 	}
 
 }

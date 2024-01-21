@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SignupUseCase {
     public static Object signup(Account account) {
@@ -30,9 +28,7 @@ public class SignupUseCase {
                         if (EmailValidator.isValid(account.getEmail())) {
                             if (validateCpf(account.getCpf())) {
                                 if (account.isDriverAccount()) {
-                                    Pattern carPlatePattern = Pattern.compile("[A-Z]{3}[0-9]{4}");
-                                    Matcher carPlateMatcher = carPlatePattern.matcher(account.getCarPlate());
-                                    if (carPlateMatcher.matches()) {
+                                    if (CarPlateValidator.isValid(account.getCarPlate())) {
                                         String insertQuery = "INSERT INTO cccat15.account (account_id, name, email, cpf, car_plate, is_passenger, is_driver) VALUES (?, ?, ?, ?, ?, ?, ?)";
                                         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                                             insertStatement.setObject(1, id);
