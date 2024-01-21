@@ -5,28 +5,26 @@ import java.util.UUID;
 
 public class SignupUseCase {
 
-	public Object signup(Account account) {
+	public Account signup(Account account) {
 		AccountRepository accountRepository = new AccountRepository();
 		account.setAccountId(UUID.randomUUID());
+		validateAccount(account);
+		try {
+			return accountRepository.create(account);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	private void validateAccount(Account account) {
 		new NameValidator().validate(account.getName());
 		new EmailValidator().validate(account.getEmail());
 		new CpfValidator().validate(account.getCpf());
 		if (account.isDriverAccount()) {
 			new CarPlateValidator().validate(account.getCarPlate());
 		}
-
-		try {
-			if (accountRepository.findByEmail(account.getEmail()).isEmpty()) {
-				return accountRepository.create(account);
-			} else {
-				// already exists
-				return -4;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		new ExistingAccountValidator().validate(account.getEmail());
 	}
 
 }
