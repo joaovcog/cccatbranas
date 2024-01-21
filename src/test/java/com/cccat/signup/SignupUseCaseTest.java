@@ -20,7 +20,7 @@ class SignupUseCaseTest {
 	
 	@BeforeEach
 	public void setup() {
-		signupUseCase = new SignupUseCase();
+		signupUseCase = new SignupUseCase(new AccountService());
 	}
 	
 	@AfterEach
