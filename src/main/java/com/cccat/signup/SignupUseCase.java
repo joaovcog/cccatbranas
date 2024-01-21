@@ -27,9 +27,7 @@ public class SignupUseCase {
                 ResultSet resultSet = selectStatement.executeQuery();
                 if (!resultSet.next()) {
 
-                    Pattern namePattern = Pattern.compile("^((?=.{1,29}$)[A-Z]\\w*(\\s[A-Z]\\w*)*)$");
-                    Matcher nameMatcher = namePattern.matcher(account.getName());
-                    if (nameMatcher.matches()) {
+                    if (NameValidator.isValid(account.getName())) {
 
                         Pattern emailPattern = Pattern.compile("^(.+)@(.+)$");
                         Matcher emailMatcher = emailPattern.matcher(account.getEmail());
