@@ -1,8 +1,8 @@
 package com.cccat.signup;
 
-public class ValidateCpf {
+public class CpfValidator {
 
-    public static boolean validateCpf(String rawCpf) {
+    public static boolean isValid(String rawCpf) {
         if (rawCpf == null || rawCpf.isEmpty()) {
             return false;
         }
@@ -55,7 +55,7 @@ public class ValidateCpf {
     public static void main(String[] args) {
         // Test the validateCpf function
         String rawCpf = "123.456.789-09";
-        boolean isValid = validateCpf(rawCpf);
+        boolean isValid = isValid(rawCpf);
         System.out.println("Is CPF valid? " + isValid);
     }
 }
