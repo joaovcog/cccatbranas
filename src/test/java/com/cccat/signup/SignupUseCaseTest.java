@@ -12,6 +12,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.cccat.domain.account.Account;
+import com.cccat.domain.account.AccountService;
+import com.cccat.domain.account.SignupUseCase;
 import com.cccat.infrastructure.ConnectionFactory;
 
 class SignupUseCaseTest {

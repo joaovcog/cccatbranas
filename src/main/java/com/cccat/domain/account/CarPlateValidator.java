@@ -1,6 +1,8 @@
-package com.cccat.signup;
+package com.cccat.domain.account;
 
 import java.util.regex.Pattern;
+
+import com.cccat.shared.ValidationException;
 
 public class CarPlateValidator {
 

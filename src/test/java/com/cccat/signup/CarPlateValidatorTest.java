@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.cccat.domain.account.CarPlateValidator;
+import com.cccat.shared.ValidationException;
+
 class CarPlateValidatorTest {
 	
 	private static final String EXCEPTION_MESSAGE = "Invalid car plate! Please, type a valid car plate with 3 letters and 4 numbers for signing up.";

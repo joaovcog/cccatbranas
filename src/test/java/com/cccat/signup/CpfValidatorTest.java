@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.cccat.domain.account.CpfValidator;
+import com.cccat.shared.ValidationException;
+
 class CpfValidatorTest {
 	
 	private static final String NO_INPUT_CPF_EXCEPTION_MESSAGE = "No input for CPF! Please, type a valid CPF for signing up.";

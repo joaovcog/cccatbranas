@@ -1,4 +1,6 @@
-package com.cccat.signup;
+package com.cccat.domain.account;
+
+import com.cccat.shared.ValidationException;
 
 public class CpfValidator {
 

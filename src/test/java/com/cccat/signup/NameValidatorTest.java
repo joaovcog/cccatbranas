@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.cccat.domain.account.NameValidator;
+import com.cccat.shared.ValidationException;
+
 class NameValidatorTest {
 
 	private static final String EXCEPTION_MESSAGE = "Invalid name! The name should have only letters.";

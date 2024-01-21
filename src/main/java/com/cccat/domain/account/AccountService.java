@@ -1,19 +1,15 @@
-package com.cccat.signup;
+package com.cccat.domain.account;
 
-import java.sql.SQLException;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.cccat.infrastructure.persistence.AccountRepositoryImpl;
 
 public class AccountService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AccountService.class); 
-	
 	private AccountRepository accountRepository;
 
 	public AccountService() {
-		this(new AccountRepository());
+		this(new AccountRepositoryImpl());
 	}
 
 	public AccountService(AccountRepository accountRepository) {
@@ -23,13 +19,7 @@ public class AccountService {
 	public Account create(Account account) {
 		account.setAccountId(UUID.randomUUID());
 		validateAccount(account);
-		try {
-			return accountRepository.create(account);
-		} catch (SQLException e) {
-			String exceptionDescription = "Error trying to create a new account.";
-			LOGGER.error(exceptionDescription);
-			throw new RuntimeException(exceptionDescription, e);
-		}
+		return accountRepository.create(account);
 	}
 	
 	private void validateAccount(Account account) {

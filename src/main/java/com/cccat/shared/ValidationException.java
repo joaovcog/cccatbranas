@@ -1,4 +1,4 @@
-package com.cccat.signup;
+package com.cccat.shared;
 
 public class ValidationException extends RuntimeException {
 

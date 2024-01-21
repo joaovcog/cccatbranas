@@ -11,6 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+import com.cccat.domain.account.Account;
+import com.cccat.domain.account.ExistingAccountValidator;
+import com.cccat.infrastructure.persistence.AccountRepositoryImpl;
+import com.cccat.shared.ValidationException;
+
 class ExistingAccountValidatorTest {
 
 	private static final String EXCEPTION_MESSAGE = "An account with the e-mail %s already exists! Please, type another e-mail for creating a new account.";
@@ -19,7 +24,7 @@ class ExistingAccountValidatorTest {
 	private ExistingAccountValidator existingAccountValidator;
 	
 	@Mock
-	private AccountRepository accountRepository;
+	private AccountRepositoryImpl accountRepository;
 
 	@BeforeEach
 	public void setup() {

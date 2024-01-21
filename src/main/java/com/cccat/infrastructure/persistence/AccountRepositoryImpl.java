@@ -1,4 +1,4 @@
-package com.cccat.signup;
+package com.cccat.infrastructure.persistence;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,11 +6,18 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.cccat.domain.account.Account;
+import com.cccat.domain.account.AccountRepository;
 import com.cccat.infrastructure.ConnectionFactory;
 
-public class AccountRepository {
+public class AccountRepositoryImpl implements AccountRepository {
 
-	public Account create(Account account) throws SQLException {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AccountRepositoryImpl.class);
+	
+	public Account create(Account account) {
 		String insertQuery = "INSERT INTO cccat15.account (account_id, name, email, cpf, car_plate, is_passenger, is_driver) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement insertStatement = new ConnectionFactory().getConnection().prepareStatement(insertQuery)) {
 			insertStatement.setObject(1, account.getAccountId());
@@ -21,11 +28,16 @@ public class AccountRepository {
 			insertStatement.setBoolean(6, account.isPassengerAccount());
 			insertStatement.setBoolean(7, account.isDriverAccount());
 			insertStatement.executeUpdate();
+			
+			return account;
+		} catch (SQLException e) {
+			String exceptionDescription = "Error trying to create a new account.";
+			LOGGER.error(exceptionDescription);
+			throw new RuntimeException(exceptionDescription, e);
 		}
-		return account;
 	}
 	
-	public Optional<Account> findByEmail(String email) throws SQLException {
+	public Optional<Account> findByEmail(String email) {
 		String selectQuery = "SELECT * FROM cccat15.account WHERE email = ?";
         try (PreparedStatement selectStatement = new ConnectionFactory().getConnection().prepareStatement(selectQuery)) {
             selectStatement.setString(1, email);
@@ -42,7 +54,11 @@ public class AccountRepository {
             	
             	return Optional.of(account);
             }
-        }
+        } catch (SQLException e) {
+			String exceptionDescription = "Error trying to find account by e-mail.";
+			LOGGER.error(exceptionDescription);
+			throw new RuntimeException(exceptionDescription, e);
+		}
         return Optional.empty();
 	}
 

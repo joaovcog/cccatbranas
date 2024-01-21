@@ -1,4 +1,4 @@
-package com.cccat.signup;
+package com.cccat.domain.account;
 
 public class SignupUseCase {
 	

@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.cccat.domain.account.EmailValidator;
+import com.cccat.shared.ValidationException;
+
 class EmailValidatorTest {
 
 	private static final String EXCEPTION_MESSAGE = "Invalid e-mail! Please, type a valid e-mail for signing up.";
