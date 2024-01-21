@@ -37,22 +37,30 @@ public class AccountRepositoryImpl implements AccountRepository {
 		}
 	}
 	
+	@Override
+	public Optional<Account> findById(UUID accountId) {
+		String selectQuery = "SELECT * FROM cccat15.account WHERE account_id = ?";
+        try (PreparedStatement selectStatement = new ConnectionFactory().getConnection().prepareStatement(selectQuery)) {
+            selectStatement.setObject(1, accountId);
+            ResultSet resultSet = selectStatement.executeQuery();
+            if (resultSet.next()) {
+            	return Optional.of(extractAccountFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+			String exceptionDescription = "Error trying to find account by ID.";
+			LOGGER.error(exceptionDescription);
+			throw new RuntimeException(exceptionDescription, e);
+		}
+        return Optional.empty();
+	}
+
 	public Optional<Account> findByEmail(String email) {
 		String selectQuery = "SELECT * FROM cccat15.account WHERE email = ?";
         try (PreparedStatement selectStatement = new ConnectionFactory().getConnection().prepareStatement(selectQuery)) {
             selectStatement.setString(1, email);
             ResultSet resultSet = selectStatement.executeQuery();
             if (resultSet.next()) {
-            	Account account = new Account();
-            	account.setAccountId((UUID) resultSet.getObject("account_id"));
-            	account.setName(resultSet.getString("name"));
-            	account.setEmail(resultSet.getString("email"));
-            	account.setCpf(resultSet.getString("cpf"));
-            	account.setCarPlate(resultSet.getString("car_plate"));
-            	account.setPassengerAccount(resultSet.getBoolean("is_passenger"));
-            	account.setDriverAccount(resultSet.getBoolean("is_driver"));
-            	
-            	return Optional.of(account);
+            	return Optional.of(extractAccountFromResultSet(resultSet));
             }
         } catch (SQLException e) {
 			String exceptionDescription = "Error trying to find account by e-mail.";
@@ -60,6 +68,18 @@ public class AccountRepositoryImpl implements AccountRepository {
 			throw new RuntimeException(exceptionDescription, e);
 		}
         return Optional.empty();
+	}
+	
+	private Account extractAccountFromResultSet(ResultSet resultSet) throws SQLException {
+		Account account = new Account();
+		account.setAccountId((UUID) resultSet.getObject("account_id"));
+		account.setName(resultSet.getString("name"));
+		account.setEmail(resultSet.getString("email"));
+		account.setCpf(resultSet.getString("cpf"));
+		account.setCarPlate(resultSet.getString("car_plate"));
+		account.setPassengerAccount(resultSet.getBoolean("is_passenger"));
+		account.setDriverAccount(resultSet.getBoolean("is_driver"));
+		return account;
 	}
 
 }
