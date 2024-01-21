@@ -26,7 +26,7 @@ public class SignupUseCase {
                 if (!resultSet.next()) {
                     if (NameValidator.isValid(account.getName())) {
                         if (EmailValidator.isValid(account.getEmail())) {
-                            if (validateCpf(account.getCpf())) {
+                            if (CpfValidator.isValid(account.getCpf())) {
                                 if (account.isDriverAccount()) {
                                     if (CarPlateValidator.isValid(account.getCarPlate())) {
                                         String insertQuery = "INSERT INTO cccat15.account (account_id, name, email, cpf, car_plate, is_passenger, is_driver) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -99,11 +99,6 @@ public class SignupUseCase {
         }
 
         return null;
-    }
-
-    private static boolean validateCpf(String cpf) {
-        // Implement CPF validation logic here
-        return true; // Placeholder, replace with actual validation logic
     }
 
     public static void main(String[] args) {

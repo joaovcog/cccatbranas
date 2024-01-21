@@ -61,7 +61,7 @@ class SignupUseCaseTest {
         
         account.setName("John Doe");
         account.setEmail("john@example.com");
-        account.setCpf("12345678901");
+        account.setCpf("96311015099");
         account.setCarPlate(null);
         account.setPassengerAccount(true);
         account.setDriverAccount(false);
@@ -74,7 +74,7 @@ class SignupUseCaseTest {
         
         account.setName("John Doe");
         account.setEmail("john.driver@example.com");
-        account.setCpf("12345678901");
+        account.setCpf("96311015099");
         account.setCarPlate("AAA1111");
         account.setPassengerAccount(false);
         account.setDriverAccount(true);
