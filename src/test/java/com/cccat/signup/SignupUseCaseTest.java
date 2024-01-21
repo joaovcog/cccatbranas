@@ -31,8 +31,21 @@ class SignupUseCaseTest {
 	}
 	
 	@Test
-	void shouldSignUpSuccessfully() {
+	void shouldSignUpPassengerSuccessfully() {
 		Object input = new Object[]{"Johnn Doe", true, "joh222n@example.com", "12345678901", null, true, false};
+		Object objectWithAccountId = SignupUseCase.signup(input);
+		Object[] arrayFromObject = (Object[]) objectWithAccountId;
+		Pattern UUID_REGEX = Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
+		
+		assertTrue(!Objects.isNull(objectWithAccountId));
+		assertTrue(arrayFromObject.length == 2);
+		assertEquals("accountId", arrayFromObject[0]);
+		assertTrue(UUID_REGEX.matcher(((UUID) arrayFromObject[1]).toString()).matches());
+	}
+	
+	@Test
+	void shouldSignUpDriverSuccessfully() {
+		Object input = new Object[]{"Johnn Doe", true, "joh222n@example.com", "12345678901", "AAA1111", false, true};
 		Object objectWithAccountId = SignupUseCase.signup(input);
 		Object[] arrayFromObject = (Object[]) objectWithAccountId;
 		Pattern UUID_REGEX = Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");

@@ -38,7 +38,7 @@ public class SignupUseCase {
                             if (validateCpf((String) ((Object[]) input)[3])) {
                                 if ((boolean) ((Object[]) input)[6]) {
                                     Pattern carPlatePattern = Pattern.compile("[A-Z]{3}[0-9]{4}");
-                                    Matcher carPlateMatcher = carPlatePattern.matcher((String) ((Object[]) input)[5]);
+                                    Matcher carPlateMatcher = carPlatePattern.matcher((String) ((Object[]) input)[4]);
                                     if (carPlateMatcher.matches()) {
                                         String insertQuery = "INSERT INTO cccat15.account (account_id, name, email, cpf, car_plate, is_passenger, is_driver) VALUES (?, ?, ?, ?, ?, ?, ?)";
                                         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
@@ -46,8 +46,8 @@ public class SignupUseCase {
                                             insertStatement.setString(2, (String) ((Object[]) input)[0]);
                                             insertStatement.setString(3, (String) ((Object[]) input)[2]);
                                             insertStatement.setString(4, (String) ((Object[]) input)[3]);
-                                            insertStatement.setString(5, (String) ((Object[]) input)[5]);
-                                            insertStatement.setBoolean(6, (boolean) ((Object[]) input)[4]);
+                                            insertStatement.setString(5, (String) ((Object[]) input)[4]);
+                                            insertStatement.setBoolean(6, (boolean) ((Object[]) input)[5]);
                                             insertStatement.setBoolean(7, (boolean) ((Object[]) input)[6]);
                                             insertStatement.executeUpdate();
 
