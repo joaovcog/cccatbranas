@@ -4,12 +4,18 @@ import java.util.regex.Pattern;
 
 import com.cccat.shared.ValidationException;
 
-public class NameValidator {
+public class NameValidator extends Validator {
 
-	public void validate(String name) {
+	@Override
+	protected void applyValidation(String name) {
 		if (!Pattern.matches("[a-zA-Z ]+", name)) {
 			throw new ValidationException("Invalid name! The name should have only letters.");
 		}
+	}
+
+	@Override
+	protected String getNullOrEmptyValidationMessage() {
+		return createNullOrEmptyMessage("name");
 	}
 
 }

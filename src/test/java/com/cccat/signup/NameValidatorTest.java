@@ -10,6 +10,7 @@ import com.cccat.shared.ValidationException;
 
 class NameValidatorTest {
 
+	private static final String NULL_EMPTY_VALIDATION_MESSAGE = "No input for the name! Please, type a valid name for signing up.";
 	private static final String EXCEPTION_MESSAGE = "Invalid name! The name should have only letters.";
 	
 	private NameValidator nameValidator;
@@ -50,7 +51,14 @@ class NameValidatorTest {
 	void shouldFailValidatingEmptyStringForName() {
 		String name = "";
 		ValidationException ex = assertThrows(ValidationException.class, () -> nameValidator.validate(name));
-		assertEquals(ex.getMessage(), EXCEPTION_MESSAGE);
+		assertEquals(ex.getMessage(), NULL_EMPTY_VALIDATION_MESSAGE);
+	}
+	
+	@Test
+	void shouldFailValidatingNullValueForName() {
+		String name = null;
+		ValidationException ex = assertThrows(ValidationException.class, () -> nameValidator.validate(name));
+		assertEquals(ex.getMessage(), NULL_EMPTY_VALIDATION_MESSAGE);
 	}
 
 }

@@ -10,7 +10,7 @@ import com.cccat.shared.ValidationException;
 
 class CpfValidatorTest {
 	
-	private static final String NO_INPUT_CPF_EXCEPTION_MESSAGE = "No input for CPF! Please, type a valid CPF for signing up.";
+	private static final String NO_INPUT_CPF_EXCEPTION_MESSAGE = "No input for the CPF! Please, type a valid CPF for signing up.";
 	private static final String INVALID_LENGTH_CPF_EXCEPTION_MESSAGE = "Invalid length for CPF! The CPF must have 11 number digits.";
 	private static final String INVALID_CPF_EXCEPTION_MESSAGE = "Invalid CPF! Please, type a valid CPF for signing up.";
 	

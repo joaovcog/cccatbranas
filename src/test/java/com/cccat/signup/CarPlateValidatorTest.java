@@ -10,6 +10,7 @@ import com.cccat.shared.ValidationException;
 
 class CarPlateValidatorTest {
 	
+	private static final String NULL_EMPTY_VALIDATION_MESSAGE = "No input for the Car Plate! Please, type a valid Car Plate for signing up.";
 	private static final String EXCEPTION_MESSAGE = "Invalid car plate! Please, type a valid car plate with 3 letters and 4 numbers for signing up.";
 	
 	private CarPlateValidator carPlateValidator;
@@ -57,7 +58,14 @@ class CarPlateValidatorTest {
 	void shouldFailValidatingEmptyStringForCarPlate() {
 		String carPlate = "";
 		ValidationException ex = assertThrows(ValidationException.class, () -> carPlateValidator.validate(carPlate));
-		assertEquals(ex.getMessage(), EXCEPTION_MESSAGE);
+		assertEquals(ex.getMessage(), NULL_EMPTY_VALIDATION_MESSAGE);
+	}
+	
+	@Test
+	void shouldFailValidatingNullValueForCarPlate() {
+		String carPlate = null;
+		ValidationException ex = assertThrows(ValidationException.class, () -> carPlateValidator.validate(carPlate));
+		assertEquals(ex.getMessage(), NULL_EMPTY_VALIDATION_MESSAGE);
 	}
 
 }

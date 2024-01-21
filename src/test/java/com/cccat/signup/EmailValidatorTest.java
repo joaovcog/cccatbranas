@@ -10,6 +10,7 @@ import com.cccat.shared.ValidationException;
 
 class EmailValidatorTest {
 
+	private static final String NULL_EMPTY_VALIDATION_MESSAGE = "No input for the e-mail! Please, type a valid e-mail for signing up.";
 	private static final String EXCEPTION_MESSAGE = "Invalid e-mail! Please, type a valid e-mail for signing up.";
 	
 	private EmailValidator emailValidator;
@@ -43,7 +44,14 @@ class EmailValidatorTest {
 	void shouldFailValidatingEmptyStringForEmail() {
 		String email = "";
 		ValidationException ex = assertThrows(ValidationException.class, () -> emailValidator.validate(email));
-		assertEquals(ex.getMessage(), EXCEPTION_MESSAGE);
+		assertEquals(ex.getMessage(), NULL_EMPTY_VALIDATION_MESSAGE);
+	}
+	
+	@Test
+	void shouldFailValidatingNullValueForEmail() {
+		String email = null;
+		ValidationException ex = assertThrows(ValidationException.class, () -> emailValidator.validate(email));
+		assertEquals(ex.getMessage(), NULL_EMPTY_VALIDATION_MESSAGE);
 	}
 
 }
