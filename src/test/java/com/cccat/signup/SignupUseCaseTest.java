@@ -9,12 +9,20 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.cccat.infrastructure.ConnectionFactory;
 
 class SignupUseCaseTest {
 
+	private SignupUseCase signupUseCase;
+	
+	@BeforeEach
+	public void setup() {
+		signupUseCase = new SignupUseCase();
+	}
+	
 	@AfterEach
 	public void tearDown() throws SQLException {
 		cleanAccountTable();
@@ -30,7 +38,7 @@ class SignupUseCaseTest {
 	@Test
 	void shouldSignUpPassengerSuccessfully() {
 		Account account = getPassengerAccount();
-		Account returnedAccount = (Account) SignupUseCase.signup(account);
+		Account returnedAccount = (Account) signupUseCase.signup(account);
 		Pattern UUID_REGEX = Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
 		
 		assertTrue(!Objects.isNull(returnedAccount));
@@ -40,7 +48,7 @@ class SignupUseCaseTest {
 	@Test
 	void shouldSignUpDriverSuccessfully() {
 		Account account = getDriverAccount();
-		Account returnedAccount = (Account) SignupUseCase.signup(account);
+		Account returnedAccount = (Account) signupUseCase.signup(account);
 		Pattern UUID_REGEX = Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
 		
 		assertTrue(!Objects.isNull(returnedAccount));

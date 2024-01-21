@@ -5,16 +5,16 @@ import java.util.UUID;
 
 public class SignupUseCase {
 	
-    public static Object signup(Account account) {
+    public Object signup(Account account) {
     	AccountRepository accountRepository = new AccountRepository();
 		account.setAccountId(UUID.randomUUID());
 		try {
 			if (accountRepository.findByEmail(account.getEmail()).isEmpty()) {
-				if (NameValidator.isValid(account.getName())) {
-					if (EmailValidator.isValid(account.getEmail())) {
-						if (CpfValidator.isValid(account.getCpf())) {
+				if (new NameValidator().isValid(account.getName())) {
+					if (new EmailValidator().isValid(account.getEmail())) {
+						if (new CpfValidator().isValid(account.getCpf())) {
 							if (account.isDriverAccount()) {
-								if (CarPlateValidator.isValid(account.getCarPlate())) {
+								if (new CarPlateValidator().isValid(account.getCarPlate())) {
 									return accountRepository.create(account);
 								} else {
 									// invalid car plate
