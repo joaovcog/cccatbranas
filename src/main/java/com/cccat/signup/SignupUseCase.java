@@ -26,13 +26,8 @@ public class SignupUseCase {
                 selectStatement.setString(1, account.getEmail());
                 ResultSet resultSet = selectStatement.executeQuery();
                 if (!resultSet.next()) {
-
                     if (NameValidator.isValid(account.getName())) {
-
-                        Pattern emailPattern = Pattern.compile("^(.+)@(.+)$");
-                        Matcher emailMatcher = emailPattern.matcher(account.getEmail());
-                        if (emailMatcher.matches()) {
-
+                        if (EmailValidator.isValid(account.getEmail())) {
                             if (validateCpf(account.getCpf())) {
                                 if (account.isDriverAccount()) {
                                     Pattern carPlatePattern = Pattern.compile("[A-Z]{3}[0-9]{4}");
