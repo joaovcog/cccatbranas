@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignupUseCase {
-    public static Object signup(Object input) {
+    public static Object signup(Account account) {
         String url = "jdbc:postgresql://localhost:5432/curso_branas";
         String user = "postgres";
         String password = "root";
@@ -23,32 +23,32 @@ public class SignupUseCase {
 
             String selectQuery = "SELECT * FROM cccat15.account WHERE email = ?";
             try (PreparedStatement selectStatement = connection.prepareStatement(selectQuery)) {
-                selectStatement.setString(1, (String) ((Object[]) input)[2]);
+                selectStatement.setString(1, account.getEmail());
                 ResultSet resultSet = selectStatement.executeQuery();
                 if (!resultSet.next()) {
 
                     Pattern namePattern = Pattern.compile("^((?=.{1,29}$)[A-Z]\\w*(\\s[A-Z]\\w*)*)$");
-                    Matcher nameMatcher = namePattern.matcher((String) ((Object[]) input)[0]);
+                    Matcher nameMatcher = namePattern.matcher(account.getName());
                     if (nameMatcher.matches()) {
 
                         Pattern emailPattern = Pattern.compile("^(.+)@(.+)$");
-                        Matcher emailMatcher = emailPattern.matcher((String) ((Object[]) input)[2]);
+                        Matcher emailMatcher = emailPattern.matcher(account.getEmail());
                         if (emailMatcher.matches()) {
 
-                            if (validateCpf((String) ((Object[]) input)[3])) {
-                                if ((boolean) ((Object[]) input)[6]) {
+                            if (validateCpf(account.getCpf())) {
+                                if (account.isDriverAccount()) {
                                     Pattern carPlatePattern = Pattern.compile("[A-Z]{3}[0-9]{4}");
-                                    Matcher carPlateMatcher = carPlatePattern.matcher((String) ((Object[]) input)[4]);
+                                    Matcher carPlateMatcher = carPlatePattern.matcher(account.getCarPlate());
                                     if (carPlateMatcher.matches()) {
                                         String insertQuery = "INSERT INTO cccat15.account (account_id, name, email, cpf, car_plate, is_passenger, is_driver) VALUES (?, ?, ?, ?, ?, ?, ?)";
                                         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                                             insertStatement.setObject(1, id);
-                                            insertStatement.setString(2, (String) ((Object[]) input)[0]);
-                                            insertStatement.setString(3, (String) ((Object[]) input)[2]);
-                                            insertStatement.setString(4, (String) ((Object[]) input)[3]);
-                                            insertStatement.setString(5, (String) ((Object[]) input)[4]);
-                                            insertStatement.setBoolean(6, (boolean) ((Object[]) input)[5]);
-                                            insertStatement.setBoolean(7, (boolean) ((Object[]) input)[6]);
+                                            insertStatement.setString(2, account.getName());
+                                            insertStatement.setString(3, account.getEmail());
+                                            insertStatement.setString(4, account.getCpf());
+                                            insertStatement.setString(5, account.getCarPlate());
+                                            insertStatement.setBoolean(6, account.isPassengerAccount());
+                                            insertStatement.setBoolean(7, account.isDriverAccount());
                                             insertStatement.executeUpdate();
 
                                             return new Object[]{"accountId", id};
@@ -62,13 +62,13 @@ public class SignupUseCase {
                                 } else {
                                     String insertQuery = "INSERT INTO cccat15.account (account_id, name, email, cpf, car_plate, is_passenger, is_driver) VALUES (?, ?, ?, ?, ?, ?, ?)";
                                     try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
-                                        insertStatement.setObject(1, id);
-                                        insertStatement.setString(2, (String) ((Object[]) input)[0]);
-                                        insertStatement.setString(3, (String) ((Object[]) input)[2]);
-                                        insertStatement.setString(4, (String) ((Object[]) input)[3]);
-                                        insertStatement.setString(5, (String) ((Object[]) input)[4]);
-                                        insertStatement.setBoolean(6, (boolean) ((Object[]) input)[5]);
-                                        insertStatement.setBoolean(7, (boolean) ((Object[]) input)[6]);
+                                    	insertStatement.setObject(1, id);
+                                        insertStatement.setString(2, account.getName());
+                                        insertStatement.setString(3, account.getEmail());
+                                        insertStatement.setString(4, account.getCpf());
+                                        insertStatement.setString(5, account.getCarPlate());
+                                        insertStatement.setBoolean(6, account.isPassengerAccount());
+                                        insertStatement.setBoolean(7, account.isDriverAccount());
                                         insertStatement.executeUpdate();
 
                                         return new Object[]{"accountId", id};
@@ -119,8 +119,16 @@ public class SignupUseCase {
 
     public static void main(String[] args) {
         // Test the signup function
-        Object input = new Object[]{"John Doe", true, "john@example.com", "12345678901", null, true, false};
-        Object result = signup(input);
+        Account acount = new Account();
+        
+        acount.setName("John Doe");
+        acount.setEmail("john@example.com");
+        acount.setCpf("12345678901");
+        acount.setCarPlate(null);
+        acount.setPassengerAccount(true);
+        acount.setDriverAccount(false);
+        
+        Object result = signup(acount);
         System.out.println(result);
     }
 }
