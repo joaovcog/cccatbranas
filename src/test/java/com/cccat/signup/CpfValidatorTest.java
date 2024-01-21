@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 
 class CpfValidatorTest {
 	
+	private static final String NO_INPUT_CPF_EXCEPTION_MESSAGE = "No input for CPF! Please, type a valid CPF for signing up.";
+	private static final String INVALID_LENGTH_CPF_EXCEPTION_MESSAGE = "Invalid length for CPF! The CPF must have 11 number digits.";
+	private static final String INVALID_CPF_EXCEPTION_MESSAGE = "Invalid CPF! Please, type a valid CPF for signing up.";
+	
 	private CpfValidator cpfValidator;
 	
 	@BeforeEach
@@ -17,43 +21,48 @@ class CpfValidatorTest {
 	@Test
 	void shouldValidateCpfSuccesfullyWithElevenNumbersAndNoSpecialCharacters() {
 		String cpf = "96311015099";
-		assertTrue(cpfValidator.isValid(cpf));
+		assertDoesNotThrow(() -> cpfValidator.validate(cpf));
 	}
 	
 	@Test
 	void shouldValidateCpfSuccesfullyWithElevenNumbersAndMask() {
 		String cpf = "963.110.150-99";
-		assertTrue(cpfValidator.isValid(cpf));
+		assertDoesNotThrow(() -> cpfValidator.validate(cpf));
 	}
 	
 	@Test
 	void shouldFailValidatingInvalidCpf() {
 		String cpf = "12345678910";
-		assertFalse(cpfValidator.isValid(cpf));
+		ValidationException ex = assertThrows(ValidationException.class, () -> cpfValidator.validate(cpf));
+		assertEquals(ex.getMessage(), INVALID_CPF_EXCEPTION_MESSAGE);
 	}
 	
 	@Test
 	void shouldFailValidatingCpfWithTenNumbers() {
 		String cpf = "9631101509";
-		assertFalse(cpfValidator.isValid(cpf));
+		ValidationException ex = assertThrows(ValidationException.class, () -> cpfValidator.validate(cpf));
+		assertEquals(ex.getMessage(), INVALID_LENGTH_CPF_EXCEPTION_MESSAGE);
 	}
 	
 	@Test
 	void shouldFailValidatingCpfWithTwelveNumbers() {
 		String cpf = "963110150992";
-		assertFalse(cpfValidator.isValid(cpf));
+		ValidationException ex = assertThrows(ValidationException.class, () -> cpfValidator.validate(cpf));
+		assertEquals(ex.getMessage(), INVALID_LENGTH_CPF_EXCEPTION_MESSAGE);
 	}
 	
 	@Test
 	void shouldFailValidatingNullValueForCpf() {
 		String cpf = null;
-		assertFalse(cpfValidator.isValid(cpf));
+		ValidationException ex = assertThrows(ValidationException.class, () -> cpfValidator.validate(cpf));
+		assertEquals(ex.getMessage(), NO_INPUT_CPF_EXCEPTION_MESSAGE);
 	}
 	
 	@Test
 	void shouldFailValidatingEmptyStringForCpf() {
 		String cpf = "";
-		assertFalse(cpfValidator.isValid(cpf));
+		ValidationException ex = assertThrows(ValidationException.class, () -> cpfValidator.validate(cpf));
+		assertEquals(ex.getMessage(), NO_INPUT_CPF_EXCEPTION_MESSAGE);
 	}
 
 }

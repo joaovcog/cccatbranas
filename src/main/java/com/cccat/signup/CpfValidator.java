@@ -4,15 +4,17 @@ public class CpfValidator {
 
 	private static final int CPF_LENGTH = 11;
 	
-    public boolean isValid(String rawCpf) {
+    public void validate(String rawCpf) {
         if (rawCpf == null || rawCpf.isEmpty()) {
-            return false;
+        	throw new ValidationException("No input for CPF! Please, type a valid CPF for signing up.");
         }
         String cpf = removeNonDigits(rawCpf);
-        if (isInvalidLength(cpf) || hasAllDigitsEqual(cpf)) {
-            return false;
+        if (isInvalidLength(cpf)) {
+        	throw new ValidationException("Invalid length for CPF! The CPF must have 11 number digits.");
         }
-        return extractVerifierDigit(cpf).equals(getCalculatedVerifierDigit(cpf));
+        if (hasAllDigitsEqual(cpf) || !extractVerifierDigit(cpf).equals(getCalculatedVerifierDigit(cpf))) {
+        	throw new ValidationException("Invalid CPF! Please, type a valid CPF for signing up.");
+        }
     }
 
     private String removeNonDigits(String cpf) {

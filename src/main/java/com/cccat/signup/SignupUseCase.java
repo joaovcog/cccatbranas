@@ -4,37 +4,21 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public class SignupUseCase {
-	
-    public Object signup(Account account) {
-    	AccountRepository accountRepository = new AccountRepository();
+
+	public Object signup(Account account) {
+		AccountRepository accountRepository = new AccountRepository();
 		account.setAccountId(UUID.randomUUID());
+
+		new NameValidator().validate(account.getName());
+		new EmailValidator().validate(account.getEmail());
+		new CpfValidator().validate(account.getCpf());
+		if (account.isDriverAccount()) {
+			new CarPlateValidator().validate(account.getCarPlate());
+		}
+
 		try {
 			if (accountRepository.findByEmail(account.getEmail()).isEmpty()) {
-				if (new NameValidator().isValid(account.getName())) {
-					if (new EmailValidator().isValid(account.getEmail())) {
-						if (new CpfValidator().isValid(account.getCpf())) {
-							if (account.isDriverAccount()) {
-								if (new CarPlateValidator().isValid(account.getCarPlate())) {
-									return accountRepository.create(account);
-								} else {
-									// invalid car plate
-									return -5;
-								}
-							} else {
-								return accountRepository.create(account);
-							}
-						} else {
-							// invalid cpf
-							return -1;
-						}
-					} else {
-						// invalid email
-						return -2;
-					}
-				} else {
-					// invalid name
-					return -3;
-				}
+				return accountRepository.create(account);
 			} else {
 				// already exists
 				return -4;
@@ -42,7 +26,7 @@ public class SignupUseCase {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-        return null;
-    }
-    
+		return null;
+	}
+
 }

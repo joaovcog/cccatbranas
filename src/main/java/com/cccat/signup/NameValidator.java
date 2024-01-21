@@ -4,8 +4,10 @@ import java.util.regex.Pattern;
 
 public class NameValidator {
 
-	public boolean isValid(String name) {
-		return Pattern.matches("[a-zA-Z ]+", name);
+	public void validate(String name) {
+		if (!Pattern.matches("[a-zA-Z ]+", name)) {
+			throw new ValidationException("Invalid name! The name should have only letters.");
+		}
 	}
 
 }
