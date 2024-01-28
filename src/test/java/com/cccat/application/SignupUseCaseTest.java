@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import com.cccat.domain.account.model.Account;
 import com.cccat.domain.account.service.AccountService;
 import com.cccat.infrastructure.ConnectionFactory;
+import com.cccat.infrastructure.persistence.AccountRepositoryImpl;
 
 class SignupUseCaseTest {
 
@@ -22,7 +23,7 @@ class SignupUseCaseTest {
 	
 	@BeforeEach
 	public void setup() {
-		signupUseCase = new SignupUseCase(new AccountService());
+		signupUseCase = new SignupUseCase(new AccountService(new AccountRepositoryImpl()));
 	}
 	
 	@AfterEach

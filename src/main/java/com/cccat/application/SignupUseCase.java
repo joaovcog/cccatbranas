@@ -1,8 +1,11 @@
 package com.cccat.application;
 
+import org.springframework.stereotype.Component;
+
 import com.cccat.domain.account.model.Account;
 import com.cccat.domain.account.service.AccountService;
 
+@Component
 public class SignupUseCase {
 	
 	private AccountService accountService;

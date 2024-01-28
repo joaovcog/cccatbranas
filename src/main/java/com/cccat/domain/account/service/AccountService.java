@@ -3,6 +3,8 @@ package com.cccat.domain.account.service;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import com.cccat.domain.account.model.Account;
 import com.cccat.domain.account.model.AccountRepository;
 import com.cccat.domain.account.validation.AccountIdValidator;
@@ -11,15 +13,11 @@ import com.cccat.domain.account.validation.CpfValidator;
 import com.cccat.domain.account.validation.EmailValidator;
 import com.cccat.domain.account.validation.ExistingAccountValidator;
 import com.cccat.domain.account.validation.NameValidator;
-import com.cccat.infrastructure.persistence.AccountRepositoryImpl;
 
+@Service
 public class AccountService {
 
 	private AccountRepository accountRepository;
-
-	public AccountService() {
-		this(new AccountRepositoryImpl());
-	}
 
 	public AccountService(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;
