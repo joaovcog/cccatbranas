@@ -1,7 +1,5 @@
 package com.cccat.infrastructure.api;
 
-import java.util.Optional;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,9 +42,10 @@ public class AccountController {
 	@GetMapping("/{accountId}")
 	@ResponseStatus(HttpStatus.OK)
 	public AccountOutputDto getAccountById(@PathVariable String accountId) {
-		AccountDtoConverter accountDtoConverter = new AccountDtoConverter(); // TODO turn this converter into a component
-		Optional<Account> optAccount = getAccountUseCase.execute(accountId);
-		return accountDtoConverter.toOutputDto(optAccount.get());
+		AccountDtoConverter accountDtoConverter = new AccountDtoConverter(); // TODO turn this converter into a
+																				// component
+		Account account = getAccountUseCase.execute(accountId);
+		return accountDtoConverter.toOutputDto(account);
 	}
 
 }

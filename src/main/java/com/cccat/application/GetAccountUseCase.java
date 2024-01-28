@@ -1,7 +1,5 @@
 package com.cccat.application;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Component;
 
 import com.cccat.domain.account.model.Account;
@@ -16,8 +14,7 @@ public class GetAccountUseCase {
 		this.accountService = accountService;
 	}
 
-	public Optional<Account> execute(String accountId) {
-		// TODO Throw exception if account is not found and create a Controller Advice to manage exceptions
+	public Account execute(String accountId) {
 		return accountService.findById(accountId);
 	}
 

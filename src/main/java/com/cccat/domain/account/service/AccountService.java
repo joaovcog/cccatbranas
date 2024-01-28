@@ -1,10 +1,10 @@
 package com.cccat.domain.account.service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.cccat.domain.account.exception.AccountNotFoundException;
 import com.cccat.domain.account.model.Account;
 import com.cccat.domain.account.model.AccountRepository;
 import com.cccat.domain.account.validation.AccountIdValidator;
@@ -39,9 +39,10 @@ public class AccountService {
 		}
 	}
 
-	public Optional<Account> findById(String accountId) {
+	public Account findById(String accountId) {
 		new AccountIdValidator().validate(accountId);
-		return accountRepository.findById(UUID.fromString(accountId));
+		return accountRepository.findById(UUID.fromString(accountId))
+				.orElseThrow(() -> new AccountNotFoundException(String.format("No account found for ID: ", accountId)));
 	}
 
 }
